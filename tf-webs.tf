@@ -15,7 +15,7 @@ resource "aws_instance" "webs1" {
 		Name = "Web-server1" 
 	}
 	
-
+// Login into instance using ssh.
 	connection {
 		type     = "ssh"
 		user     = "ec2-user"
@@ -34,10 +34,12 @@ resource "aws_instance" "webs1" {
 	}
 }
 
+// Displaying the IP of the instance
 output "Web_server1_IP"  {
 	value = aws_instance.webs1.public_ip
 }
 
+// Storing the IP of instance locally in a text file.
 resource "null_resource" "IP" {
 	provisioner "local-exec" {
 		command = "echo ${aws_instance.webs1.public_ip} > public_ips.txt" 
